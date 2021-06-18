@@ -1,0 +1,1 @@
+DROP TABLE products;/* Replace with your SQL commands */

@@ -1,0 +1,1 @@
+DROP TABLE orders;/* Replace with your SQL commands */
