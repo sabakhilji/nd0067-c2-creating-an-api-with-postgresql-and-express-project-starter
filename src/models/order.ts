@@ -1,11 +1,11 @@
 import client from '../database'
 
 export type Order={
-    id:string;
+    id:number;
     quantity:number;
     status:string;
-    user_id:bigint;
-    product_id:bigint;
+    user_id:BigInt;
+    product_id:BigInt;
 }
 
 export class OrderStore {

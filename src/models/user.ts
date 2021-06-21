@@ -1,11 +1,11 @@
 import client from '../database'
 import bcrypt from 'bcrypt'
-/*import dotenv from 'dotenv'
-dotenv.config()*/
-const SALT_ROUNDS="10"
+import dotenv from 'dotenv'
+dotenv.config()
+//const SALT_ROUNDS="10"
 
-const BCRYPT_PASSWORD="I_CAN_DO_IT"
-
+//const BCRYPT_PASSWORD="I_CAN_DO_IT"
+const { saltRounds, BCRYPT_PASSWORD } = process.env
 export type User={
     id:number;
     username:string;
@@ -19,7 +19,7 @@ export class UserStore{
           const sql='SELECT * FROM users WHERE id=($1)'
           const result=await conn.query(sql)
           conn.release()
-          return result.rows
+          return result.rows[0]
       }catch(err){
           throw new Error('cannot get user ${id}')
       }
@@ -28,11 +28,11 @@ export class UserStore{
 async create(u:User):Promise<User>{
     try{
         const conn=await client.connect()
-        const sql = 'INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *'
+        const sql = 'INSERT INTO users (username, password) VALUES($1, $2) RETURNING *'
 
       const hash = bcrypt.hashSync(
         u.password + BCRYPT_PASSWORD, 
-        parseInt(SALT_ROUNDS)
+        parseInt(saltRounds as string)
       );
 
       const result = await conn.query(sql, [u.username, hash])
@@ -59,6 +59,23 @@ async delete(id:string):Promise<User>{
   } catch (err) {
     throw new Error(`Could not delete user ${id}. Error: ${err}`)
 }
+}
+  
+
+async authenticate(userName: string, password: string): Promise<User | null> {
+  const connection = await client.connect()
+  const sql = 'select password from users where username=($1)'
+  const result = await connection.query(sql, [userName])
+
+  if (result.rows.length) {
+    const user = result.rows[0]
+    connection.release()
+    const password_checker = bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password)
+    if (password_checker) {
+      return user
+    }
+  }
+  return null
 }
 }
   

@@ -14,6 +14,10 @@ describe("User Model", () => {
   it('should have a delete method', () => {
     expect(store.delete).toBeDefined();
   });
+  
+  it('should have a authenticate method', () => {
+    expect(store.authenticate).toBeDefined();
+  });
 
   it('create method should add a user', async () => {
     const result = await store.create({
@@ -23,19 +27,19 @@ describe("User Model", () => {
     });
     expect(result).toEqual({
       id:1,
-      username:'saba',
-      password:'Maairah_14'
+      username:"saba",
+      password:"Maairah_14",
     });
   });
 
  
 
-  it('show method should return the correct book', async () => {
+  it('show method should return the correct user', async () => {
     const result = await store.show("1");
     expect(result).toEqual({
       id: 1,
       username:"saba",
-      password:"Maairah_14"
+      password:"Maairah_14",
     });
   });
 
