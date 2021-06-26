@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "test":"set ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
+    "test": "set ENV=test db-migrate --env test up && jasmine-ts  && db-migrate db:drop test",
     "tsc": "tsc"
   },
   "author": "Udacity",
@@ -28,6 +28,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/jasmine": "^3.6.3",
     "@types/pg": "^7.14.11",
+    "cross-env": "^7.0.3",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts": "^0.3.0",
     "ts-node": "^9.1.1",

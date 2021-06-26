@@ -20,50 +20,36 @@ describe("Order Model", () => {
   });
 
  it('create method should add a order', async () => {
-    const result = await store.create({  id:1,      
+    const result = await store.create({  
+      id:1,      
       quantity:1,
       status:"open",
       user_id:1n,
-      product_id:1n
+      
     });
-    expect(result).toEqual({
-      id:1,
-      quantity:1,
-      status:"open",
-      user_id:1n,
-      product_id:1n,
-    });
+    expect(result).toBeTrue()
+      
+  
   });
   it('index method should return a list of orders', async () => {
     const result = await store.index();
-    expect(result).toEqual([{
-      id:1,
-      quantity:1,
-      status:"open",
-      user_id:1n,
-      product_id:1n,
+    expect(result).toBeTrue()     
 
-    }])
+    
       });
  
 
   it('show method should return the correct order', async () => {
-    const result = await store.show("1");
-    expect(result).toEqual({
-        id:1,
-        quantity:1,
-        status:"open",
-        user_id:1n,
-        product_id:1n,
-  
+    const result = await store.show(1);
+    expect(result).toBeTrue()      
       
-    });
+   
   });
 
   it('delete method should remove the user', async () => {
-    const result=store.delete("1");
+    const result=store.delete(1);
    
 
-    expect(result).toBeNull;
+    expect(result).toBeTrue();
   });
 });

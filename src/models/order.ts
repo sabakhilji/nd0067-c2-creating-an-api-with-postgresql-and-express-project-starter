@@ -5,7 +5,7 @@ export type Order={
     quantity:number;
     status:string;
     user_id:BigInt;
-    product_id:BigInt;
+    
 }
 
 export class OrderStore {
@@ -25,7 +25,7 @@ export class OrderStore {
       }
     }
   
-    async show(id: string): Promise<Order> {
+    async show(id: number): Promise<Order> {
       try {
       const sql = 'SELECT * FROM orders WHERE id=($1)'
       // @ts-ignore
@@ -43,12 +43,12 @@ export class OrderStore {
   
     async create(o: Order): Promise<Order> {
         try {
-      const sql = 'INSERT INTO orders (quantity,status,user_id,product_id) VALUES($1, $2, $3, $4) RETURNING *'
+      const sql = 'INSERT INTO orders (quantity,status,user_id) VALUES($1, $2, $3) RETURNING *'
       // @ts-ignore
       const conn = await client.connect()
   
       const result = await conn
-          .query(sql, [o.quantity, o.status,o.user_id, o.product_id])
+          .query(sql, [o.quantity, o.status,o.user_id] )
   
       const order = result.rows[0]
   
@@ -60,7 +60,7 @@ export class OrderStore {
         }
     }
   
-    async delete(id: string): Promise<Order> {
+    async delete(id: number): Promise<Order> {
         try {
       const sql = 'DELETE FROM orders WHERE id=($1)'
       // @ts-ignore

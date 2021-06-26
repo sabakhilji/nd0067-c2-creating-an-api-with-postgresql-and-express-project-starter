@@ -13,11 +13,11 @@ export type User={
 }
 
 export class UserStore{
-  async show(id:string):Promise<User>{
+  async show(id:number):Promise<User>{
       try{
           const conn=await client.connect()
           const sql='SELECT * FROM users WHERE id=($1)'
-          const result=await conn.query(sql)
+          const result=await conn.query(sql,[id])
           conn.release()
           return result.rows[0]
       }catch(err){
@@ -25,28 +25,28 @@ export class UserStore{
       }
   }
 
-async create(u:User):Promise<User>{
+async create(u:User):Promise<boolean>{
     try{
         const conn=await client.connect()
         const sql = 'INSERT INTO users (username, password) VALUES($1, $2) RETURNING *'
 
-      const hash = bcrypt.hashSync(
+      /*const hash = bcrypt.hashSync(
         u.password + BCRYPT_PASSWORD, 
         parseInt(saltRounds as string)
-      );
+      );*/
 
-      const result = await conn.query(sql, [u.username, hash])
+      const result = await conn.query(sql, [u.username, u.password])
       const user = result.rows[0]
 
       conn.release()
 
-      return user
+      return true
     } catch(err) {
       throw new Error(`unable create user (${u.username}): ${err}`)
     } 
   }
 
-async delete(id:string):Promise<User>{
+/*async delete(id:string):Promise<User>{
   try{
     const conn =await client.connect()
     const sql='DELETE FROM users WHERE id={$1}'
@@ -59,10 +59,10 @@ async delete(id:string):Promise<User>{
   } catch (err) {
     throw new Error(`Could not delete user ${id}. Error: ${err}`)
 }
-}
+}*/
   
 
-async authenticate(userName: string, password: string): Promise<User | null> {
+/*async authenticate(userName: string, password: string): Promise<User | null> {
   const connection = await client.connect()
   const sql = 'select password from users where username=($1)'
   const result = await connection.query(sql, [userName])
@@ -76,7 +76,7 @@ async authenticate(userName: string, password: string): Promise<User | null> {
     }
   }
   return null
-}
+}*/
 }
   
 
