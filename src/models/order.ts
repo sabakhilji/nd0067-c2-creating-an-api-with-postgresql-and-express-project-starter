@@ -1,10 +1,10 @@
 import client from '../database'
 
 export type Order={
-    id:number;
+    id:string;
     quantity:number;
     status:string;
-    user_id:BigInt;
+    user_id:string;
     
 }
 
@@ -43,12 +43,12 @@ export class OrderStore {
   
     async create(o: Order): Promise<Order> {
         try {
-      const sql = 'INSERT INTO orders (quantity,status,user_id) VALUES($1, $2, $3) RETURNING *'
+      const sql = 'INSERT INTO orders (id,quantity,status,user_id) VALUES($1, $2, $3,$4) RETURNING *'
       // @ts-ignore
       const conn = await client.connect()
   
       const result = await conn
-          .query(sql, [o.quantity, o.status,o.user_id] )
+          .query(sql, [o.id,o.quantity, o.status,o.user_id] )
   
       const order = result.rows[0]
   
@@ -60,7 +60,7 @@ export class OrderStore {
         }
     }
   
-    async delete(id: number): Promise<Order> {
+    async delete(id:string): Promise<boolean> {
         try {
       const sql = 'DELETE FROM orders WHERE id=($1)'
       // @ts-ignore
@@ -72,7 +72,7 @@ export class OrderStore {
   
       conn.release()
   
-      return order 
+      return true 
         } catch (err) {
             throw new Error(`Could not delete order ${id}. Error: ${err}`)
         }
