@@ -25,7 +25,7 @@ export class OrderStore {
       }
     }
   
-    async show(id: number): Promise<Order> {
+    async show(id: string): Promise<Order> {
       try {
       const sql = 'SELECT * FROM orders WHERE id=($1)'
       // @ts-ignore

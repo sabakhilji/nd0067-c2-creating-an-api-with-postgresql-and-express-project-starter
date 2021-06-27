@@ -46,7 +46,7 @@ async create(u:User):Promise<boolean>{
     } 
   }
 
-/*async delete(id:string):Promise<User>{
+async delete(id:string):Promise<User>{
   try{
     const conn =await client.connect()
     const sql='DELETE FROM users WHERE id={$1}'
@@ -59,7 +59,7 @@ async create(u:User):Promise<boolean>{
   } catch (err) {
     throw new Error(`Could not delete user ${id}. Error: ${err}`)
 }
-}*/
+}
   
 
 /*async authenticate(userName: string, password: string): Promise<User | null> {
