@@ -1,7 +1,7 @@
 import client from '../database'
 
 export type Order={
-    id:string;
+    id:number;
     quantity:number;
     status:string;
     user_id:string;
@@ -25,7 +25,7 @@ export class OrderStore {
       }
     }
   
-    async show(id: string): Promise<Order> {
+    async show(id: number): Promise<Order> {
       try {
       const sql = 'SELECT * FROM orders WHERE id=($1)'
       // @ts-ignore
@@ -60,7 +60,7 @@ export class OrderStore {
         }
     }
   
-    async delete(id:string): Promise<boolean> {
+    async delete(id:number): Promise<boolean> {
         try {
       const sql = 'DELETE FROM orders WHERE id=($1)'
       // @ts-ignore
