@@ -1,4 +1,4 @@
 CREATE TABLE order_products(id SERIAL PRIMARY KEY,
-order_id bigint REFERENCES orders(id),
-product_id bigint REFERENCES products(id)
+order_id integer REFERENCES orders(id) ON DELETE CASCADE,
+product_id integer REFERENCES products(id) ON DELETE CASCADE
 );/* Replace with your SQL commands */

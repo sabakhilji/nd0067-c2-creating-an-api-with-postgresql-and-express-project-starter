@@ -1,9 +1,8 @@
+import { Product,ProductStore } from '../product';
 
-import { Order, OrderStore } from '../order';
+const store = new ProductStore()
 
-const store = new OrderStore()
-
-describe("Order Model", () => {
+describe("Product Model", () => {
   it('should have a show method', () => {
     expect(store.show).toBeDefined();
   });
@@ -20,39 +19,35 @@ describe("Order Model", () => {
     expect(store.index).toBeDefined();
   });
 
- it('create method should add a order', async () => {
+ it('create method should add a product', async () => {
     const result = await store.create({  
       id:1,      
-      quantity:1,
-      status:"open",
-      user_id:1,
+      name:"suit",
+      price:10,
+      category:"clothes",
       
     })
-    expect(result).toEqual({id:1,
-      quantity:1,
-      status:"open",
-      user_id:1,
-    });
+    expect(result).toBeTrue();
       
   });
-  it('index method should return a list of orders', async () => {
+  it('index method should return a list of products', async () => {
     const result = await store.index();
     expect(result).toEqual([{id:1,
-      quantity:1,
-      status:"open",
-      user_id:1,
+        name:"suit",
+        price:10,
+        category:"clothes",
     }]);     
 
     
       });
  
 
-  it('show method should return the correct order', async () => {
+  it('show method should return the required product', async () => {
     const result = await store.show(1);
     expect(result).toEqual({id:1,
-      quantity:1,
-      status:"open",
-      user_id:1,
+        name:"suit",
+        price:10,
+        category:"clothes",
     });      
       
    

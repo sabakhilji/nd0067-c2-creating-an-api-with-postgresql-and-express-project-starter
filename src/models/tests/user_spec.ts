@@ -11,13 +11,13 @@ describe("User Model", () => {
     expect(store.create).toBeDefined();
   });
 
-  //it('should have a delete method', () => {
-   // expect(store.delete).toBeDefined();
-  //});
+  it('should have a delete method', () => {
+      expect(store.delete).toBeDefined();
+  });
   
-  //it('should have a authenticate method', () => {
-  //  expect(store.authenticate).toBeDefined();
- // });
+  it('should have a authenticate method', () => {
+      expect(store.authenticate).toBeDefined();
+  });
 
   it('create method should add a user', async () => {
     const result = await store.create({  
@@ -39,10 +39,8 @@ describe("User Model", () => {
     });
   });
 
-  /*it('delete method should remove the user', async () => {
-    const result=store.delete("1");
-   
-
-    expect(result).toBeNull;
-  });*/
+  it('delete method should remove the user', async () => {
+    const result=await store.delete(1);
+    expect(result).toBeTrue;
+  });
 });

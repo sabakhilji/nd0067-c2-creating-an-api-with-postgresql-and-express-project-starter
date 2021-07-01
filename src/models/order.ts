@@ -4,7 +4,7 @@ export type Order={
     id:number;
     quantity:number;
     status:string;
-    user_id:string;
+    user_id:number;
     
 }
 
@@ -41,7 +41,7 @@ export class OrderStore {
       }
     }
   
-    async create(o: Order): Promise<Order> {
+    async create(o: Order): Promise<Order|string> {
         try {
       const sql = 'INSERT INTO orders (id,quantity,status,user_id) VALUES($1, $2, $3,$4) RETURNING *'
       // @ts-ignore
@@ -60,7 +60,7 @@ export class OrderStore {
         }
     }
   
-    async delete(id:number): Promise<boolean> {
+    async delete(id:number): Promise<boolean|string> {
         try {
       const sql = 'DELETE FROM orders WHERE id=($1)'
       // @ts-ignore
