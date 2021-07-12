@@ -1,9 +1,38 @@
-
+import { User, UserStore } from '../user';
 import { Order, OrderStore } from '../order';
-
+const store_user = new UserStore()
 const store = new OrderStore()
 
 describe("Order Model", () => {
+  beforeAll (async()=>{await store_user.create({
+              id:1,
+              username:"saba",
+              password:"123"
+  })}
+  );
+  afterAll(async()=>{
+    await store_user.delete(1);
+  })
+/*spyOn(store,'index').and.returnValue(Promise.resolve([{
+  id:1,
+  quantity:1,
+  status:"open",
+  user_id:1,
+}])
+);
+
+spyOn(store,'create').and.returnValue(Promise.resolve({
+  id:1,
+  quantity:1,
+  status:"open",
+  user_id:1,
+})
+);*/
+
+
+
+  
+  
   it('should have a show method', () => {
     expect(store.show).toBeDefined();
   });
